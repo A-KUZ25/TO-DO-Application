@@ -2,16 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Task\IndexRequest;
+use App\Http\Resources\TaskShortResource;
+use App\Interfaces\TaskRepositoryInterface;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
 
-    public function index()
+    public function __construct(
+        private readonly TaskRepositoryInterface $repository
+    )
+    {}
+
+    public function index(IndexRequest $request)
     {
-        $tasks = Task::paginate(10);
-        return response()->json($tasks);
+        $validated = $request->validated();
+
+        $perPage = $validated['per_page'] ?? 25;
+
+        $tasks =  $this->repository->getPaginatedTasks($perPage);
+
+        return TaskShortResource::collection($tasks);
     }
 
 

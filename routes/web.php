@@ -7,5 +7,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::apiResource('tasks', TaskController::class);
+Route::prefix('api')->group(function () {
+    Route::apiResource('tasks', TaskController::class);
+});
