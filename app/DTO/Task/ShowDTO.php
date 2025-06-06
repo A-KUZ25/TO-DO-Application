@@ -1,23 +1,21 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Task;
 
-use App\Http\Requests\Task\StoreRequest;
+use App\Http\Requests\Task\SaveRequest;
 
-class CreateTaskDTO
+class ShowDTO
 {
     public function __construct(
-        public readonly string $title,
-        public readonly ?string $description,
-        public readonly bool $isCompleted = false
+        public readonly int $taskId,
+        public readonly bool $withRelations = false
     ) {}
 
-    public static function fromRequest(StoreRequest $request): self
+    public static function fromRequest(int $taskId): self
     {
         return new self(
-            title: $request->validated('title'),
-            description: $request->validated('description'),
-            isCompleted: $request->boolean('is_completed')
+            taskId: $taskId,
+            withRelations: request()->boolean('with_relations') //TODO: Прилепи связи с User
         );
     }
 }

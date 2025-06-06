@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Task;
 
-use App\Http\Requests\Task\StoreRequest;
+use App\Http\Requests\Task\SaveRequest;
 
-class CreateTaskDTO
+class CreateDTO
 {
     public function __construct(
         public readonly string $title,
@@ -12,7 +12,7 @@ class CreateTaskDTO
         public readonly bool $isCompleted = false
     ) {}
 
-    public static function fromRequest(StoreRequest $request): self
+    public static function fromRequest(SaveRequest $request): self
     {
         return new self(
             title: $request->validated('title'),

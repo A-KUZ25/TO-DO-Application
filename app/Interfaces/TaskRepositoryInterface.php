@@ -2,9 +2,18 @@
 
 namespace App\Interfaces;
 
-use Illuminate\Contracts\Pagination\Paginator;
+use App\DTO\Task\CreateDTO;
+use App\DTO\Task\ListDTO;
+use App\DTO\Task\ShowDTO;
+use App\DTO\Task\UpdateDTO;
+use App\Models\Task;
+
 
 interface TaskRepositoryInterface
 {
-    public function getPaginatedTasks(int $perPage): Paginator;
+    public function getPaginatedTasks(ListDTO $dto);
+    public function createTask(CreateDTO $dto): Task;
+    public function findTask(ShowDTO $dto): Task;
+    public function updateTask(UpdateDTO $dto, Task $task): Task;
+
 }

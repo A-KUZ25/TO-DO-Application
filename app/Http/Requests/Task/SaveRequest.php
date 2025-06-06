@@ -4,7 +4,7 @@ namespace App\Http\Requests\Task;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class SaveRequest extends FormRequest
 {
 
     public function authorize(): bool
@@ -17,7 +17,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description' => 'nullable|sometimes|string',
             'is_completed' => 'nullable|boolean'
         ];
     }

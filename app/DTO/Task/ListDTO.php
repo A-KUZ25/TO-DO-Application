@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Task;
 
 use App\Http\Requests\Task\IndexRequest;
 
- class TaskListDTO
+class ListDTO
 {
     public function __construct(
         public readonly int     $perPage = 25,

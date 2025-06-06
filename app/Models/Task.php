@@ -11,9 +11,12 @@ class Task extends Model
     use SoftDeletes,
         HasFactory;
 
-    protected $fillable = [
-        'title',
-        'description',
-        'is_complete'
-    ];
+    protected $guarded = [];
+
+    public function scopeStatus($query, ?bool $isCompleted, bool $filterByStatus)
+    {
+        if ($filterByStatus) {
+            $query->where('is_completed', $isCompleted);
+        }
+    }
 }

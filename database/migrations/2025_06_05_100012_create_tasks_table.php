@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->boolean('is_complete')->default(0);
+            $table->boolean('is_completed')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['is_completed', 'id']);  // Для запросов с фильтром по статусу
+            $table->index('title');
         });
     }
 
