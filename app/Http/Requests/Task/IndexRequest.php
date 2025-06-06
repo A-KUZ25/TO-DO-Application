@@ -17,10 +17,12 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'per_page' => 'nullable|integer|min:1|max:100',
+            'per_page' => 'nullable|integer|min:1|max:100',
+            'is_completed' => 'nullable|boolean',
+            'sort_by' => 'nullable|in:id,title,created_at',
+            'sort_order' => 'nullable|in:asc,desc',
         ];
 
     }
-
 }
 
