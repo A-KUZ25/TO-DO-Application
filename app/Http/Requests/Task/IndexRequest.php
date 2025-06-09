@@ -24,5 +24,14 @@ class IndexRequest extends FormRequest
         ];
 
     }
+
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'per_page' => $this->input('per_page', 25),
+            'sort_by' => $this->input('sort_by', 'id'),
+            'sort_order' => $this->input('sort_order', 'asc'),
+        ]);
+    }
 }
 

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['is_completed', 'id']);  // Для запросов с фильтром по статусу
+            $table->index(['is_completed', 'id']);
             $table->index('title');
         });
     }

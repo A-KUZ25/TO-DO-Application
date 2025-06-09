@@ -7,7 +7,7 @@ use App\Http\Requests\Task\IndexRequest;
 class ListDTO
 {
     public function __construct(
-        public readonly int     $perPage = 25,
+        public readonly int     $perPage,
         public readonly ?bool   $isCompleted = null,
         public readonly bool    $filterByStatus = false,
         public readonly ?string $sortBy = 'id',

@@ -22,4 +22,26 @@ class UpdateDTO
             hasDescription: $request->has('description')
         );
     }
+
+
+    //description может быть явно null
+    //а может быть просто не передан с фронта
+    public function toUpdateArray(): array
+    {
+        $data = [];
+
+        if ($this->title !== null) {
+            $data['title'] = $this->title;
+        }
+
+        if ($this->hasDescription) {
+            $data['description'] = $this->description;
+        }
+
+        if ($this->isCompleted !== null) {
+            $data['is_completed'] = $this->isCompleted;
+        }
+
+        return $data;
+    }
 }

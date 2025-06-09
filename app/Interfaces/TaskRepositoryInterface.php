@@ -15,5 +15,6 @@ interface TaskRepositoryInterface
     public function createTask(CreateDTO $dto): Task;
     public function findTask(ShowDTO $dto): Task;
     public function updateTask(UpdateDTO $dto, Task $task): Task;
+    public function deleteTask(Task $task): void;
 
 }

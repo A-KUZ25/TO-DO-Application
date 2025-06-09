@@ -16,7 +16,9 @@ class Task extends Model
     public function scopeStatus($query, ?bool $isCompleted, bool $filterByStatus)
     {
         if ($filterByStatus) {
-            $query->where('is_completed', $isCompleted);
+            return $query->where('is_completed', $isCompleted);
         }
+
+        return $query;
     }
 }
