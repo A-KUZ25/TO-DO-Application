@@ -12,7 +12,7 @@ class UpdateTest extends TestCase
 
     use MakesFormRequests;
 
-    public function test_creates_dto_from_request()
+    public function test_creates_dto_from_request(): void
     {
         $request = $this->makeFormRequest(SaveRequest::class, [
             'title' => 'New Task',
@@ -29,7 +29,7 @@ class UpdateTest extends TestCase
     }
 
 
-    public function test_handles_missing_description()
+    public function test_handles_missing_description(): void
     {
         $request = $this->makeFormRequest(SaveRequest::class, [
             'title' => 'New Task',
@@ -44,7 +44,7 @@ class UpdateTest extends TestCase
     }
 
 
-    public function test_converts_to_update_array_correctly()
+    public function test_converts_to_update_array_correctly(): void
     {
         // Сценарий 1: description явно null (стереть)
         $dto1 = new UpdateDTO(
@@ -70,7 +70,9 @@ class UpdateTest extends TestCase
             $dto2->toUpdateArray()
         );
     }
-
+    /**
+     * @param array<string, mixed> $data
+     */
     public function createSaveRequest(array $data): SaveRequest
     {
         $request = SaveRequest::create('/fake-url', 'POST', $data);

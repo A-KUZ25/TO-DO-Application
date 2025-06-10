@@ -9,7 +9,7 @@ class TaskControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_index_returns_paginated_tasks()
+    public function test_index_returns_paginated_tasks(): void
     {
         Task::factory()->count(3)->create();
 
@@ -19,7 +19,7 @@ class TaskControllerTest extends TestCase
             ->assertJsonStructure(['data' => [['id', 'title']]]);
     }
 
-    public function test_store_creates_new_task()
+    public function test_store_creates_new_task(): void
     {
         $data = [
             'title' => 'Test Task',
@@ -35,7 +35,7 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseHas('tasks', ['title' => 'Test Task', 'description' => 'Description']);
     }
 
-    public function test_show_returns_task()
+    public function test_show_returns_task(): void
     {
         $task = Task::factory()->create();
 
@@ -45,7 +45,7 @@ class TaskControllerTest extends TestCase
             ->assertJsonFragment(['id' => $task->id]);
     }
 
-    public function test_update_changes_task()
+    public function test_update_changes_task(): void
     {
         $task = Task::factory()->create();
 
@@ -60,7 +60,7 @@ class TaskControllerTest extends TestCase
     }
 
 
-    public function test_destroy_deletes_task()
+    public function test_destroy_deletes_task(): void
     {
         $task = Task::factory()->create();
 

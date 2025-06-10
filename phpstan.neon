@@ -1,0 +1,19 @@
+includes:
+  - ./vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 5
+    universalObjectCratesClasses:
+        - Illuminate\Http\Resources\Json\JsonResource
+    ignoreErrors:
+        - '#missingType\.generics#'
+    paths:
+        - app
+        - tests
+    excludePaths:
+        - vendor
+
+    inferPrivatePropertyTypeFromConstructor: true
+    treatPhpDocTypesAsCertain: true
+
+    checkMissingTypehints: true

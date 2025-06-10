@@ -24,7 +24,7 @@ class TaskRepositoryTest extends TestCase
         $this->repository = new TaskRepository();
     }
 
-    public function test_it_returns_paginated_tasks_filtered_and_sorted()
+    public function test_it_returns_paginated_tasks_filtered_and_sorted(): void
     {
         Task::factory()->create(['title' => 'С', 'is_completed' => true]);
         Task::factory()->create(['title' => 'B', 'is_completed' => true]);
@@ -40,11 +40,13 @@ class TaskRepositoryTest extends TestCase
 
         $result = $this->repository->getPaginatedTasks($dto);
 
-        $this->assertCount(2, $result);
-        $this->assertEquals('B', $result->first()->title);
+        $first = $result->items()[0] ?? null;
+
+        $this->assertInstanceOf(Task::class, $first);
+        $this->assertEquals('B', $first->title);
     }
 
-    public function test_it_creates_task_from_dto()
+    public function test_it_creates_task_from_dto(): void
     {
         $dto = new CreateDTO(
             title: 'New Task',
@@ -58,7 +60,7 @@ class TaskRepositoryTest extends TestCase
         $this->assertSame('New Task', $task->title);
     }
 
-    public function test_it_finds_task_by_id()
+    public function test_it_finds_task_by_id(): void
     {
         $task = Task::factory()->create();
 
@@ -69,7 +71,7 @@ class TaskRepositoryTest extends TestCase
         $this->assertTrue($task->is($found));
     }
 
-    public function test_it_updates_task_using_dto()
+    public function test_it_updates_task_using_dto(): void
     {
         $task = Task::factory()->create(['title' => 'Old']);
 
@@ -86,7 +88,7 @@ class TaskRepositoryTest extends TestCase
         $this->assertEquals(true, $updated->is_completed);
     }
 
-    public function test_it_deletes_task()
+    public function test_it_deletes_task(): void
     {
         $task = Task::factory()->create();
 

@@ -8,7 +8,6 @@ use App\DTO\Task\ShowDTO;
 use App\DTO\Task\UpdateDTO;
 use App\Interfaces\TaskRepositoryInterface;
 use App\Models\Task;
-use App\Traits\TaskUpdateData;
 use Illuminate\Contracts\Pagination\Paginator;
 
 class TaskRepository implements TaskRepositoryInterface
