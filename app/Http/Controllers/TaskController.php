@@ -14,6 +14,7 @@ use App\Interfaces\TaskRepositoryInterface;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
+
 class TaskController extends Controller
 {
 
@@ -42,9 +43,10 @@ class TaskController extends Controller
     }
 
 
-    public function show(Task $task)
+    public function show(Task $task, Request $request)
     {
-        $dto = ShowDTO::fromRequest($task->id);
+
+        $dto = ShowDTO::fromRequest($task->id, $request);
 
         $task = $this->repository->findTask($dto);
 
@@ -64,6 +66,7 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        //
+        $this->repository->deleteTask($task);
+        return response()->noContent();
     }
 }

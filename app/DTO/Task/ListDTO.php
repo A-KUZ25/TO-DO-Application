@@ -19,7 +19,7 @@ class ListDTO
     public static function fromRequest(IndexRequest $request): self
     {
         return new self(
-            perPage: $request->validated('per_page'),
+            perPage: $request->validated('per_page', 25),
             isCompleted: $request->boolean('is_completed'),
             filterByStatus: $request->has('is_completed'),
             sortBy: $request->validated('sort_by', 'id'),

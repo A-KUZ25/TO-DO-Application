@@ -8,19 +8,19 @@ use App\DTO\Task\ShowDTO;
 use App\DTO\Task\UpdateDTO;
 use App\Interfaces\TaskRepositoryInterface;
 use App\Models\Task;
-use App\Traits\TaskUpdateData;
 use Illuminate\Contracts\Pagination\Paginator;
 
 class TaskRepository implements TaskRepositoryInterface
 {
 
-    use TaskUpdateData;
+
 
     public function getPaginatedTasks(ListDTO $dto): Paginator
     {
         return Task::query()
             ->status($dto->isCompleted, $dto->filterByStatus)
             ->orderBy($dto->sortBy, $dto->sortOrder)
+            ->select('id', 'title', 'is_completed')
             ->simplePaginate($dto->perPage);
     }
 
@@ -42,11 +42,15 @@ class TaskRepository implements TaskRepositoryInterface
 
     public function updateTask(UpdateDTO $dto, Task $task): Task
     {
-        $data = $this->traitUpdateData($dto);
+        $data = $dto->toUpdateArray();
 
-        $task->update($data);
+        $task->fill($data)->save();
 
         return $task->fresh();
     }
 
+    public function deleteTask(Task $task): void
+    {
+        $task->delete();
+    }
 }

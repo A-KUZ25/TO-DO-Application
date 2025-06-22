@@ -2,7 +2,9 @@
 
 namespace App\DTO\Task;
 
-use App\Http\Requests\Task\SaveRequest;
+
+
+use Illuminate\Http\Request;
 
 class ShowDTO
 {
@@ -11,11 +13,11 @@ class ShowDTO
         public readonly bool $withRelations = false
     ) {}
 
-    public static function fromRequest(int $taskId): self
+    public static function fromRequest(int $taskId, Request $request): self
     {
         return new self(
             taskId: $taskId,
-            withRelations: request()->boolean('with_relations') //TODO: Прилепи связи с User
+            withRelations: $request->boolean('with_relations') //TODO: Прилепи связи с User
         );
     }
 }
