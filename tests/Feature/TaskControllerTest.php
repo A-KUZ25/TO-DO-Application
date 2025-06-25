@@ -2,6 +2,8 @@
 
 
 use App\Models\Task;
+use App\Models\User;
+use Laravel\Sanctum\Sanctum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -11,6 +13,7 @@ class TaskControllerTest extends TestCase
 
     public function test_index_returns_paginated_tasks(): void
     {
+        Sanctum::actingAs(User::factory()->create());
         Task::factory()->count(3)->create();
 
         $response = $this->getJson(route('tasks.index'));
@@ -21,6 +24,7 @@ class TaskControllerTest extends TestCase
 
     public function test_store_creates_new_task(): void
     {
+        Sanctum::actingAs(User::factory()->create());
         $data = [
             'title' => 'Test Task',
             'description' => 'Description',
@@ -37,6 +41,7 @@ class TaskControllerTest extends TestCase
 
     public function test_show_returns_task(): void
     {
+        Sanctum::actingAs(User::factory()->create());
         $task = Task::factory()->create();
 
         $response = $this->getJson(route('tasks.show', $task));
@@ -47,6 +52,7 @@ class TaskControllerTest extends TestCase
 
     public function test_update_changes_task(): void
     {
+        Sanctum::actingAs(User::factory()->create());
         $task = Task::factory()->create();
 
         $data = ['title' => 'Updated title'];
@@ -62,6 +68,7 @@ class TaskControllerTest extends TestCase
 
     public function test_destroy_deletes_task(): void
     {
+        Sanctum::actingAs(User::factory()->create());
         $task = Task::factory()->create();
 
         $response = $this->deleteJson(route('tasks.destroy', $task));
